@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px; 
+        }
+        nav ul {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+        }
+        nav li {
+            margin-right: 10px;
+        }
+        nav li a {
+            text-decoration: none;
+        }
+        header {
+            margin-top: 20px; 
+        }
+        .grafico-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        canvas {
+            max-width: 400px; 
+            max-height: 200px; 
+            width: 100%; 
+            height: auto; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <header>
+                <h1>Bienvenido Administrador</h1>
+            </header>
+            <nav>
+                <ul>
+                    <li><a href="#productos" class="inicio-link">Productos</a></li>
+                    <li><a href="#categorias" class="inicio-link">Categorías</a></li>
+                    <li><a href="#reportes" class="inicio-link">Reportes de Ventas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <section id="Reportes">
+        <h2>Reportes</h2>
+        <div class="grafico-container">
+            <canvas id="graficoBarras"></canvas>
+            <canvas id="graficoVentasDiarias"></canvas>
+        </div>
+        <div class="grafico-container">
+            <canvas id="graficoPastel"></canvas>
+            <canvas id="graficoLineas"></canvas>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const datosBarras = {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                datasets: [{
+                    label: 'Gastos Mensuales',
+                    data: [400, 300, 600, 800, 700, 500],
+                    backgroundColor: '#ff6384'
+                }]
+            };
+
+            const datosVentasDiarias = {
+                labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+                datasets: [{
+                    label: 'Ventas Diarias',
+                    data: [50, 70, 60, 80, 90],
+                    backgroundColor: '#ffce56'
+                }]
+            };
+
+            const datosPastel = {
+                labels: ['Gastos', 'Ventas', 'Perdidas'],
+                datasets: [{
+                    label: 'Datos de ejemplo',
+                    data: [300, 500, 200],
+                    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56']
+                }]
+            };
+
+            const datosLineas = {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                datasets: [{
+                    label: 'Ventas Mensuales',
+                    data: [100, 200, 300, 400, 500, 600],
+                    borderColor: '#36a2eb',
+                    fill: false
+                }]
+            };
+
+            const configBarras = {
+                type: 'bar',
+                data: datosBarras,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            const configVentasDiarias = {
+                type: 'bar',
+                data: datosVentasDiarias,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            const configPastel = {
+                type: 'pie',
+                data: datosPastel
+            };
+
+            const configLineas = {
+                type: 'line',
+                data: datosLineas,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            var ctxBarras = document.getElementById('graficoBarras').getContext('2d');
+            new Chart(ctxBarras, configBarras);
+
+            var ctxVentasDiarias = document.getElementById('graficoVentasDiarias').getContext('2d');
+            new Chart(ctxVentasDiarias, configVentasDiarias);
+
+            var ctxPastel = document.getElementById('graficoPastel').getContext('2d');
+            new Chart(ctxPastel, configPastel);
+
+            var ctxLineas = document.getElementById('graficoLineas').getContext('2d');
+            new Chart(ctxLineas, configLineas);
+        });
+    </script>
+
+</body>
+</html>
